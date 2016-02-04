@@ -1,7 +1,6 @@
 package main
 
-// #cgo LDFLAGS: -L /usr/local/lib -lgeotiff
-// #cgo CFLAGS: -I /usr/local/include
+// #cgo LDFLAGS: -lgeotiff
 // #include <geotiff.h>
 // #include <xtiffio.h>
 // #include <geo_normalize.h>
