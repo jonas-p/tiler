@@ -1,7 +1,8 @@
 package main
 
-// #cgo LDFLAGS: -lgeotiff
+// #cgo LDFLAGS: -lgeotiff -ltiff
 // #include <geotiff.h>
+// #include <tiffio.h>
 // #include <xtiffio.h>
 // #include <geo_normalize.h>
 import "C"
@@ -11,6 +12,9 @@ import (
 )
 
 func GeoTIFFProj4Def(file string) (string, error) {
+ 	C.TIFFSetErrorHandler(nil)
+	C.TIFFSetWarningHandler(nil)
+	
 	tif := C.XTIFFOpen(C.CString(file), C.CString("r"))
 	if tif == nil {
 		return "", errors.New("Could not open file")
