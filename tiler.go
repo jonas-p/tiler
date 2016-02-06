@@ -12,9 +12,9 @@ func main() {
 		return
 	}
 
-	proj4, err := GeoTIFFProj4Def(os.Args[1])
+	rep, err := GeoTIFFRepresentation(os.Args[1])
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Proj4: %s\n", proj4)
+	fmt.Println(rep)
 }
