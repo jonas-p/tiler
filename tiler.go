@@ -16,5 +16,17 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	
 	fmt.Println(rep)
+
+	fmt.Println("Creating projection object")
+	
+	proj, err := NewProj(rep.Proj4)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer proj.Close()
+
+	fmt.Println("OK!")
+	_ = proj
 }
