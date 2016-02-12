@@ -1,6 +1,7 @@
 package main
 
 // #cgo LDFLAGS: -lgeotiff -ltiff
+// #include <stdlib.h>
 // #include <geotiff.h>
 // #include <tiffio.h>
 // #include <xtiffio.h>
@@ -31,7 +32,13 @@ func GeoTIFFRepresentation(file string) (*ImageRepresentation, error) {
 	C.TIFFSetErrorHandler(nil)
 	C.TIFFSetWarningHandler(nil)
 
-	tif := C.XTIFFOpen(C.CString(file), C.CString("r"))
+	fstr := C.CString(file)
+	defer C.free(unsafe.Pointer(fstr))
+
+	rstr := C.CString("r")
+	defer C.free(unsafe.Pointer(rstr))
+
+	tif := C.XTIFFOpen(fstr, rstr)
 	if tif == nil {
 		return nil, errors.New("Could not open file")
 	}
